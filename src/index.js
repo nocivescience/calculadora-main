@@ -1,0 +1,13 @@
+const express = require('express');
+const app = express();
+const port = 3078;
+const morgan = require('morgan');
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(require('./routers/routers'));
+app.use(morgan('dev'));
+app.listen(port, () => console.log(`Server running on port ${port}`));
